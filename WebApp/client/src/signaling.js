@@ -212,7 +212,9 @@ export class WebSocketSignaling extends EventTarget {
   }
 
   sendOffer(connectionId, sdp) {
-    sdp += "a=camera_1";
+    const urlParams = new URLSearchParams(window.location.search);
+    const cameraId = urlParams.get('camera');
+    sdp += "i=camera_" + cameraId + "\r\n";
     const data = { 'sdp': sdp, 'connectionId': connectionId, 'camera': 1 };
     const sendJson = JSON.stringify({ type: "offer", from: connectionId, data: data });
     Logger.log(sendJson);
