@@ -212,7 +212,8 @@ export class WebSocketSignaling extends EventTarget {
   }
 
   sendOffer(connectionId, sdp) {
-    const data = { 'sdp': sdp, 'connectionId': connectionId };
+    sdp += "a=camera_1";
+    const data = { 'sdp': sdp, 'connectionId': connectionId, 'camera': 1 };
     const sendJson = JSON.stringify({ type: "offer", from: connectionId, data: data });
     Logger.log(sendJson);
     this.websocket.send(sendJson);
